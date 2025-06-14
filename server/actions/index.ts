@@ -47,17 +47,20 @@ export async function scraper(productUrl: string) {
 }
 
 export async function getProduct(productId: string) {
-    try{
-        connect()
-        const product = await Product.findById(productId)
-        if(!product) {
-            return null;
-        }
-        return product
-    } catch(err: any){
-        console.log(err)
+    try {
+        const res = await fetch(`https://pricefindrr.vercel.app/api/product/${productId}`, {
+            cache: 'no-store',
+        });
+        if (!res.ok) return null;
+
+        const data = await res.json();
+        return data.product; // based on your API's response shape
+    } catch (err) {
+        console.log("Fetch getProduct error:", err);
+        return null;
     }
 }
+
 
 export async function getAllProducts(){
     try{
@@ -73,24 +76,21 @@ export async function getAllProducts(){
     }
 }
 
-export async function getSimilar(productId: string){
-    try{
-        connect()
-        const product = await Product.findById(productId)
-        if(!product) {
-            return null;
-        }
+export async function getSimilar(productId: string) {
+    try {
+        const res = await fetch(`https://pricefindrr.vercel.app/api/similar/${productId}`, {
+            cache: 'no-store',
+        });
+        if (!res.ok) return [];
 
-        const similarProduct = await Product.find({
-            _id: {$ne: product._id},
-            category: product.category
-        }).limit(4)
-
-        return similarProduct
-    } catch (err: any){
-        console.log(err)
+        const data = await res.json();
+        return data.products; // adjust this line based on your API response
+    } catch (err) {
+        console.log("Fetch getSimilar error:", err);
+        return [];
     }
 }
+
 
 export async function setEmail(productId:  string | string[], inputEmail: string) {
     try{
