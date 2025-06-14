@@ -48,7 +48,7 @@ export async function scraper(productUrl: string) {
 
 export async function getProduct(productId: string) {
     try {
-        const res = await fetch(`https://pricefindrr.vercel.app/api/product/${productId}`, {
+        const res = await fetch(`https://price-findrr-three.vercel.app/api/product/${productId}`, {
             cache: 'no-store',
         });
         if (!res.ok) return null;
@@ -78,7 +78,7 @@ export async function getAllProducts(){
 
 export async function getSimilar(productId: string) {
     try {
-        const res = await fetch(`https://pricefindrr.vercel.app/api/similar/${productId}`, {
+        const res = await fetch(`https://price-findrr-three.vercel.app/api/similar/${productId}`, {
             cache: 'no-store',
         });
         if (!res.ok) return [];
