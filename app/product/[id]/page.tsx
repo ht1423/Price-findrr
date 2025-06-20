@@ -73,7 +73,7 @@ const page = async ({ params: { id } }: pageProps) => {
 
             {/* Enhanced Category & Link */}
             <div className="flex gap-4 flex-wrap">
-              <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-md border border-purple-500/30 rounded-xl text-sm text-white font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+              <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600/60 to-pink-600/60 backdrop-blur-md border border-purple-500/30 rounded-xl text-sm text-white font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
                 <MdCategory className="text-purple-300" /> 
                 <span className="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-transparent">{product.category}</span>
               </div>
