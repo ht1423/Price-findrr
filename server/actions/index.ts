@@ -6,6 +6,7 @@ import { getLowestPrice, getHighestPrice, getAveragePrice } from "../utils";
 import { revalidatePath } from "next/cache";
 import { setEmailBody, sendEmail } from "../mailService";
 import { redirect } from "next/navigation";
+
 export async function scraper(productUrl: string) {
     if(!productUrl) {
         return;
@@ -92,26 +93,33 @@ export async function getSimilar(productId: string){
     }
 }
 
-export async function setEmail(productId:  string | string[], inputEmail: string) {
-    try{
-        connect()
-        const product = await Product.findById(productId)
-        if(!product) {
-            return null;
-        }
-        const isTracking = product.users.some((user: {email: string}) => user.email === inputEmail);
-
-        if(isTracking){
-            return false
-        }
-
-        product.users.push({email: inputEmail})
-        const emailAdded = await product.save()
-
-        const emailBody = await setEmailBody(product, "WELCOME")
-
-        await sendEmail(emailBody, [inputEmail])
-    } catch(err: any){
-        console.log(err)
+export async function setEmail(productId: string | string[], inputEmail: string) {
+    try {
+      console.log("📩 setEmail triggered with:", productId, inputEmail);
+  
+      connect();
+      const product = await Product.findById(productId);
+      if (!product) {
+        console.warn("❌ Product not found.");
+        return null;
+      }
+  
+      const isTracking = product.users.some((user: { email: string }) => user.email === inputEmail);
+      
+      
+  
+      product.users.push({ email: inputEmail });
+      const emailAdded = await product.save();
+      console.log("✅ Email added to product:", emailAdded._id);
+  
+      const emailBody = await setEmailBody(product, "WELCOME");
+      console.log("📨 Email body generated");
+  
+      await sendEmail(emailBody, [inputEmail]);
+      console.log("✅ Email send attempt finished");
+    } catch (err: any) {
+      console.error("❌ setEmail failed:", err);
+      throw err;
     }
-}
+  }
+  

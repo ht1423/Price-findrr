@@ -7,14 +7,22 @@ const Type = {
 
 const THRESHOLD = 30
 
-export function getPrice(...elements:any) {
-    for(const element of elements) {
-        const price = element.text().trim()
-        if(price) return price.replace(/\D/g, '')
+export function getPrice(...elements: any) {
+    for (const element of elements) {
+      const price = element.text().trim()
+      console.log('Price text:', price)  // Add this to debug
+      if (price) {
+        let cleanedPrice = price.replace(/[^\d.,]/g, '')
+        cleanedPrice = cleanedPrice.replace(/,/g, '')
+        const numberPrice = parseFloat(cleanedPrice)
+        if (!isNaN(numberPrice)) return numberPrice.toFixed(2)
+      }
     }
     return ''
-}
-
+  }
+  
+  
+  
 export function getCurrency(element:any) {
     const currency = element.text().trim().slice(0,1)
     return currency ?  currency : ''

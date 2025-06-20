@@ -36,11 +36,20 @@ const Search = () => {
     }
   }
   return (
-    <form className='flex flex-wrap gap-4' onSubmit={handleSubmit}>
-        <input type="text" placeholder="Product Lookup" className="flex p-2 md:p-4 rounded-lg shadow-xs text-base text-gray-500 focus:outline-none" onChange={(e) => setSearch(e.target.value)}/>
-        <button type="submit" className="bg-zinc-900 rounded-lg shadow-xs px-5 py-2 md:py-4 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40 " disabled={loading}>{
-          loading ? "Loading..." : "Search"
-        }</button>
+    <form className='flex flex-wrap justify-between w-full gap-4' onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          placeholder="drop any amazon product link here..." 
+          className="flex-1 min-w-[300px] p-2  rounded-lg shadow-xs text-lg text-white focus:outline-none bg-gray-900 bg-opacity-70 backdrop-blur-sm border border-gray-700 transition-all duration-300 ease-in-out" 
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button 
+          type="submit" 
+          className="bg-zinc-900 rounded-lg shadow-xs px-5 py-1 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40 transition-all duration-300 ease-in-out hover:shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
+          disabled={loading}
+        >
+          {loading ? "Loading..." : "Search"}
+        </button>
     </form>
   )
 }
